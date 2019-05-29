@@ -68,7 +68,7 @@ if(empty($_POST)){
             'username' => $username,
             'email' => $email
         ];
-        header('Location: /success.php?subject=inscription');
+        header('Location: /users/success.php?subject=inscription');
     }
 }
 //var_dump($existingInputs);

@@ -20,7 +20,7 @@ if($disconnecting == true){
 <?php else: ?>
 <div class="jumbotron">
     <h1 class="display-5">Le média de la Rime.</h1>
-    <p class="lead">Rimedia est là pour valoriser et partager les artistes qui en ont dans la plume.</p>
+    <p class="lead">Cette platforme est là pour valoriser et partager les artistes qui en ont dans la plume. <br>Phases, rimes et belles phrases au menu.</p>
     <hr class="my-4">
     <p>Explore ou présente-toi.</p>
     <a class="btn btn-primary btn" href="users/register.php" role="button">Inscription</a>

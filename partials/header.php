@@ -36,7 +36,7 @@ $loggedStatus = $_SESSION['logged'] ?? '';
                 <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span> </a>
             </li>
             <li class="nav-item <?php echo($currentPage == "last" ? "active" : "");?>">
-                <a class="nav-link" href="last.php">Derniers</a>
+                <a class="nav-link" href="last.php?page=1">Derniers</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

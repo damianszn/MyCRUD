@@ -20,6 +20,7 @@ $songName = $_POST['songName'] ?? '';
 $link = $_POST['link'] ?? '';
 $genre = $_POST['genre'] ?? '';
 $image = $_FILES ?? '';
+var_dump($_FILES);
 $imageSource = $_POST['imageSource'] ?? '';
 
 $errors = [
@@ -43,44 +44,41 @@ if(empty($_POST)){
         $isValid = false;
         $errors['title'] = "Le titre est obligatoire.";
     } 
-    var_dump($isValid);
     if (!$songName) {
         $isValid = false;
         $errors['songName'] = "Le titre du morceau est obligatoire.";
     } 
-    var_dump($isValid);
     if (!$image) {
         $isValid = false;
         $errors['image'] = "Il faut une image. Un screenshot, une cover; en lien avec le morceau.";
     } 
-    var_dump($isValid);
     if (!$imageSource) {
         $isValid = false;
         $errors['imageSource'] = "Il faut la source de l'image en question. Soit un lien externe, soit une source écrite.";
     } 
-    var_dump($isValid);
     if($isValid){
-        $query = $pdo->prepare('INSERT INTO posts (author, title, article, artistName, albumName, songName, link, date, genre, imageSource) 
-        VALUES (:author, :title, :article, :artistName, :albumName, :songName, :link, :date, :genre, :imageSource)');
+        $filename = $_FILES['image']['type'];
+        $ext = ".".substr($filename, -3, 3);
+        $query = $pdo->prepare('INSERT INTO posts (author, title, article, artistName, albumName, songName, link, date, genre, imageSource, imageExt) 
+        VALUES (:author, :title, :article, :artistName, :albumName, :songName, :link, :date, :genre, :imageSource, :imageExt)');
         $query->execute([
             'author' => $_SESSION['username'],
             'title' => $title,
-            'article' => $article,
+            'article' => "\"".$article."\"",
             'artistName' => $artistName,
             'albumName' => $albumName,
             'songName' => $songName,
             'link' => $link,
-            'date' => date("d.m.y"),
+            'date' => date("d.m.y h:i"),
             'genre' => $genre,
-            'imageSource' => $imageSource
-        ]);
-
+            'imageSource' => $imageSource,
+            'imageExt' => $ext
+        ]); 
         $id = $pdo->lastInsertId();
         uploadImage($image, $id);
         header('Location: ../users/success.php?subject=publication');
     } 
 }
-var_dump($existingInputs);
 
 ?>
 
@@ -101,7 +99,7 @@ var_dump($existingInputs);
                 </div>
                 <!-- Details -->
                 <div class="form-group">
-                    <textarea name="article" placeholder="Description, texte du post"
+                    <textarea name="article" placeholder="Une rime, une description"
                         class="form-control <?php echo($errors['article']) && !$firstAccess ? 'is-invalid' : '' ?>"><?php echo htmlentities($article)?></textarea>
                     <div class="invalid-feedback">
                         <?php echo $errors['article']; ?>

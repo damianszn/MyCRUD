@@ -33,11 +33,12 @@ function isUnique(array $inputs,string $columnName ,string $value):bool{
 
 function verifyLogin(array $inputs,string $username, string $password):array{
     foreach($inputs as $i => $input){
-        if($input['username'] === $username){
+        if($input['username'] == $username){
             $index = $i;
         }
     }
-    if(empty($index)){
+    if(!isset($index)){
+        var_dump($index);
         return [
             false,
             'username'
@@ -65,4 +66,43 @@ function uploadImage(array $file,int $id)
 
     $target = 'users/images/'.$newname;
     move_uploaded_file( $file['image']['tmp_name'], $target);
+}
+
+function listOfPosts(array $data, int $indexMin, int $indexMax){
+    $list = '';
+    for($i = $indexMin; $i <= $indexMax; $i++){
+        if(isset($data[$i])){
+            $postData = $data[$i];
+
+            $id = $postData['id'];
+            $title = $postData['title'];
+            $article = $postData['article'] ?? '';
+            $ext = $postData['imageExt'];
+            $picPath = $id.$ext;
+
+            $list .= <<<HTML
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">$title</h5>
+                    <pre class="card-text">$article</pre>
+                    <p class="card-text"><small class="text-muted"></small></p>
+                </div>
+                <img style='width:30vw' src='/users/images/${picPath}' class="card-img-top rounded mx-auto d-block">
+                <br>
+            </div><br>
+HTML;
+        }
+    }
+    return $list;
+}
+
+function lastPost(){
+    $pdo = new PDO('sqlite:data.db', null, null, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+    $data = $pdo->query("SELECT * FROM posts ORDER BY date DESC");
+    $existingInputs = $data->fetchAll();
+    $post = $existingInputs[0];
+
 }
