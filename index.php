@@ -37,6 +37,7 @@ $lastPosts = $data->fetchAll();
     <a class="btn btn-primary btn" href="users/login.php" role="button">Connexion</a>
 </div>
 <?php endif;?>
+<br>
 <div class="container">
   <div class="bd-example" style="width: 100%; margin: auto;">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
