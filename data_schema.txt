@@ -1,0 +1,17 @@
+Users :
+
+- id 
+- username
+- password
+- email
+
+/////
+
+Posts :
+- id
+- author, title, article 
+- artistName, albumName, songName
+- link (to YouTube)
+- date (of post)
+- genre (melody/decoupe)
+- image & imageSource

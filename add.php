@@ -50,7 +50,7 @@ if(empty($_POST)){
     } 
     if (!$image) {
         $isValid = false;
-        $errors['image'] = "Il faut une image. Un screenshot, une cover; en lien avec le morceau.";
+        $errors['image'] = "Il faut une image. Un screenshot, une cover; en lien avec le morceau. ";
     } 
     if (!$imageSource) {
         $isValid = false;
@@ -58,7 +58,11 @@ if(empty($_POST)){
     } 
     if($isValid){
         $filename = $_FILES['image']['type'];
-        $ext = ".".substr($filename, -3, 3);
+        $cut = substr($filename, -3, 3);
+        if($cut == "peg"){
+            $cut = "jpg";
+        } 
+        $ext = ".".$cut;
         $query = $pdo->prepare('INSERT INTO posts (author, title, article, artistName, albumName, songName, link, date, genre, imageSource, imageExt) 
         VALUES (:author, :title, :article, :artistName, :albumName, :songName, :link, :date, :genre, :imageSource, :imageExt)');
         $query->execute([
@@ -143,7 +147,7 @@ if(empty($_POST)){
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="imageSelect">Image : *</label>
+                    <label for="imageSelect">Image (.png ou .jpg/.jpeg) : *</label>
                     <input name="image" type="file" 
                         class="form-control-file <?php echo($errors['image']) && !$firstAccess ? 'is-invalid' : '' ?>" id="imageSelect">
                     <div class="invalid-feedback">
