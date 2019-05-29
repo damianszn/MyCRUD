@@ -4,6 +4,8 @@ require_once 'functions.php';
 
 $currentPage = getRouteName($_SERVER);
 
+$genre = $_GET['genre'] ?? '';
+
 $loggedStatus = $_SESSION['logged'] ?? '';
 ?>
 
@@ -35,18 +37,15 @@ $loggedStatus = $_SESSION['logged'] ?? '';
             <li class="nav-item <?php echo($currentPage == "index" ? "active" : "");?>">
                 <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span> </a>
             </li>
-            <li class="nav-item <?php echo($currentPage == "last" ? "active" : "");?>">
-                <a class="nav-link" href="last.php?page=1">Derniers</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Genres
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item active" href="#">Découpeurs</a>
-                <a class="dropdown-item" href="#">Mélodieux</a>
+                <a class="dropdown-item <?= $genre == 'decoupeur' ? 'active' : '' ?>" href="genres.php?genre=decoupeur&page=1">Découpeurs</a>
+                <a class="dropdown-item <?= $genre == 'melodieux' ? 'active' : '' ?>" href="genres.php?genre=melodieux&page=1">Mélodieux</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="genres.php">Tous genres confondus</a>
+                <a class="dropdown-item <?= $currentPage == "genres" && $genre == '' ? 'active' : ''  ?>" href="genres.php">Voir les genres</a>
                 </div>
             </li>
             <li class="nav-item <?php echo($currentPage == "about" ? "active" : "");?>">
@@ -57,7 +56,10 @@ $loggedStatus = $_SESSION['logged'] ?? '';
                 <a class="nav-link" href="add.php" style="color:green">Ajouter</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?disconnect=true" style="color:red">Déconnexion</a>
+                <a class="nav-link" href="change.php" style="color:blue">Gérer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?disconnect=true" style="color:red">Déconnecter</a>
             </li>
             <?php endif;?>
             </ul>

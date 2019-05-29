@@ -31,7 +31,7 @@ function isUnique(array $inputs,string $columnName ,string $value):bool{
     return true;
 }   
 
-function verifyLogin(array $inputs,string $username, string $password):array{
+function verifyLogin(array $inputs, string $username, string $password):array{
     foreach($inputs as $i => $input){
         if($input['username'] == $username){
             $index = $i;
@@ -68,6 +68,18 @@ function uploadImage(array $file,int $id)
     move_uploaded_file( $file['image']['tmp_name'], $target);
 }
 
+function pagesByPosts(int $posts):int{
+    if($posts < 5){
+        return 1;
+    } elseif($posts % 5 == 0) {
+        $result = $posts/5;
+        return $result;
+    } else {
+        $result = $posts/5+1;
+        return $result;
+    }
+}
+
 function listOfPosts(array $data, int $indexMin, int $indexMax){
     $list = '';
     for($i = $indexMin; $i <= $indexMax; $i++){
@@ -94,15 +106,4 @@ HTML;
         }
     }
     return $list;
-}
-
-function lastPost(){
-    $pdo = new PDO('sqlite:data.db', null, null, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
-    $data = $pdo->query("SELECT * FROM posts ORDER BY date DESC");
-    $existingInputs = $data->fetchAll();
-    $post = $existingInputs[0];
-
 }

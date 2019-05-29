@@ -12,6 +12,6 @@ Posts :
 - author, title, article 
 - artistName, albumName, songName
 - link (to YouTube)
-- date (of post)
+- date & time (of post)
 - genre (melody/decoupe)
-- image & imageSource
+- image & imageSource & imageExt

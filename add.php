@@ -20,7 +20,6 @@ $songName = $_POST['songName'] ?? '';
 $link = $_POST['link'] ?? '';
 $genre = $_POST['genre'] ?? '';
 $image = $_FILES ?? '';
-var_dump($_FILES);
 $imageSource = $_POST['imageSource'] ?? '';
 
 $errors = [
@@ -39,7 +38,6 @@ if(empty($_POST)){
     $firstAccess = true;
 } else { 
     $isValid = true;
-    
     if (!$title) {
         $isValid = false;
         $errors['title'] = "Le titre est obligatoire.";
