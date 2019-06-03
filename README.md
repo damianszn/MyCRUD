@@ -1,3 +1,3 @@
 # MyCRUD
-My take at making a simple CRUD with MySQL
+My take at making a CRUD (create, read, update, delete) with MySQL
 
