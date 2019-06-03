@@ -1,7 +1,7 @@
 <?php 
 session_start();
 include '../functions.php';
-//Header for "users" pagess
+//Header for "users" pages
 $currentPage = getRouteName($_SERVER);
 ?>
 

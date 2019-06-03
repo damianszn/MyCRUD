@@ -16,7 +16,7 @@ $pdo = new PDO('sqlite:data.db', null, null, [
   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
 
-$data = $pdo->query("SELECT * FROM posts ORDER BY date DESC LIMIT 3");
+$data = $pdo->query("SELECT * FROM posts ORDER BY date ASC LIMIT 3");
 $lastPosts = $data->fetchAll();
 ?>
 
@@ -43,28 +43,34 @@ $lastPosts = $data->fetchAll();
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <div class="card" style="width: 60vw; margin: auto;">
-              <img src="/users/images/<?= $lastPosts[0]['id'].$lastPosts[0]['imageExt'] ?>" class="card-img-top" alt="...">
-              <div class="card-body">
-                <pre class="card-text"><?= $lastPosts[0]['article'] ?></pre>
+            <a href="view.php?id=<?= $lastPosts[0]['id']; ?>">
+              <div class="card" style="width: 60vw; margin: auto;">
+                <img src="/users/images/<?= $lastPosts[0]['id'].$lastPosts[0]['imageExt'] ?>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <pre class="card-text"><?= $lastPosts[0]['article'] ?></pre>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
           <div class="carousel-item">
-            <div class="card" style="width: 60vw; margin: auto;">
-              <img src="/users/images/<?= $lastPosts[1]['id'].$lastPosts[1]['imageExt'] ?>" class="card-img-top" alt="...">
-              <div class="card-body">
-                <pre class="card-text"><?= $lastPosts[1]['article'] ?></pre>
+            <a href="view.php?id=<?= $lastPosts[1]['id']; ?>">
+              <div class="card" style="width: 60vw; margin: auto;">
+                <img src="/users/images/<?= $lastPosts[1]['id'].$lastPosts[1]['imageExt'] ?>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <pre class="card-text"><?= $lastPosts[1]['article'] ?></pre>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
           <div class="carousel-item">
-            <div class="card" style="width: 60vw; margin: auto;">
+            <a href="view.php?id=<?= $lastPosts[2]['id']; ?>">
+              <div class="card" style="width: 60vw; margin: auto;">
                 <img src="/users/images/<?= $lastPosts[2]['id'].$lastPosts[2]['imageExt'] ?>" class="card-img-top" alt="...">
                 <div class="card-body">
                   <pre class="card-text"><?= $lastPosts[2]['article'] ?></pre>
                 </div>
               </div>
+            </a>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev" style="filter: invert(100%);">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

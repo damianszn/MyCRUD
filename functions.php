@@ -14,7 +14,7 @@ function getRouteName(array $server){
 //////////////////////////////////////////////USERS////////////////////////////////////////s
 
 /**
- * @param array $inputs : all data fetched from users
+ * @param array $inputs : all data fetched from db
  * 
  * @param string $columnName : for example : 'email', 'username' 
  * 
@@ -54,7 +54,7 @@ function verifyLogin(array $inputs, string $username, string $password):array{
 }
 
 ////////////////////////////////////////POSTS////////////////////////////////////
-function uploadImage(array $file,int $id)
+function uploadImage(array $file, $id)
 {
     if(!is_dir(__DIR__."/users/images")){
         mkdir(__DIR__."/users/images");
@@ -93,17 +93,111 @@ function listOfPosts(array $data, int $indexMin, int $indexMax){
             $picPath = $id.$ext;
 
             $list .= <<<HTML
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">$title</h5>
-                    <pre class="card-text">$article</pre>
-                    <p class="card-text"><small class="text-muted"></small></p>
-                </div>
-                <img style='width:30vw' src='/users/images/${picPath}' class="card-img-top rounded mx-auto d-block">
-                <br>
-            </div><br>
+            <a href="view.php?id=${id}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">$title</h5>
+                        <pre class="card-text">$article</pre>
+                        <p class="card-text"><small class="text-muted"></small></p>
+                    </div>
+                    <img style='width:30vw' src='/users/images/${picPath}' class="card-img-top rounded mx-auto d-block">
+                    <br>
+                </div><br>
+            </a>
 HTML;
         }
     }
     return $list;
+}
+
+function postDetails(array $post){
+    $output = '';
+    $postDetails = [
+        $post['artistName'],
+        $post['albumName'],
+        $post['songName']
+    ];
+    if($post['artistName'] != '' && $post['albumName'] != '' && $post['songName'] != ''){
+        $output .= <<<HTML
+        <div class="col-md-8">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${post['artistName']}</li>
+                    <li class="list-group-item">${post['albumName']}</li>
+                    <li class="list-group-item">${post['songName']}</li>
+                </ul>
+            </div>
+        </div>
+HTML;
+        return $output;
+    }
+    elseif($post['artistName'] != '' || $post['albumName'] != '' || $post['songName'] != ''){
+        $output .= <<<HTML
+        <div class="col-md-8">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+HTML;
+        foreach($postDetails as $postDetail){
+            if($postDetail !== ''){
+                $output .= <<<HTML
+                    <li class="list-group-item">${postDetail}</li>
+HTML;
+            }
+        }
+        $output .= <<<HTML
+                </ul>
+            </div>
+        </div>
+HTML;
+        return $output;
+    }
+    else{
+        return null;
+    }
+}
+
+function postDetailsNoPic(array $post){
+    $output = '';
+    $postDetails = [
+        $post['artistName'],
+        $post['albumName'],
+        $post['songName']
+    ];
+    if($post['artistName'] != '' && $post['albumName'] != '' && $post['songName'] != ''){
+        $output .= <<<HTML
+        <div class="col-md">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${post['artistName']}</li>
+                    <li class="list-group-item">${post['albumName']}</li>
+                    <li class="list-group-item">${post['songName']}</li>
+                </ul>
+            </div>
+        </div>
+HTML;
+        return $output;
+    }
+    elseif($post['artistName'] != '' || $post['albumName'] != '' || $post['songName'] != ''){
+        $output .= <<<HTML
+        <div class="col-md">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+HTML;
+        foreach($postDetails as $postDetail){
+            if($postDetail !== ''){
+                $output .= <<<HTML
+                    <li class="list-group-item">${postDetail}</li>
+HTML;
+            }
+        }
+        $output .= <<<HTML
+                </ul>
+            </div>
+        </div>
+HTML;
+        return $output;
+    }
+    else{
+        return null;
+    }
 }

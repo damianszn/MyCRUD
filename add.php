@@ -38,29 +38,33 @@ if(empty($_POST)){
     $firstAccess = true;
 } else { 
     $isValid = true;
-    if (!$title) {
+    if (!$title && $title != '') {
         $isValid = false;
         $errors['title'] = "Le titre est obligatoire.";
     } 
-    if (!$songName) {
+    if (!$songName  && $songName != '') {
         $isValid = false;
         $errors['songName'] = "Le titre du morceau est obligatoire.";
     } 
-    if (!$image) {
+    if (!$image  && $image != '') {
         $isValid = false;
         $errors['image'] = "Il faut une image. Un screenshot, une cover; en lien avec le morceau. ";
     } 
-    if (!$imageSource) {
+    if (!$imageSource  && $imageSource != '') {
         $isValid = false;
         $errors['imageSource'] = "Il faut la source de l'image en question. Soit un lien externe, soit une source écrite.";
     } 
-    if($isValid){
+    if((isUnique($existingInputs,'title', $title) == false && $isValid == true)){
+        $errors['title'] = "Un autre post existe déjà avec ce nom";
+    }
+    else{
         $filename = $_FILES['image']['type'];
         $cut = substr($filename, -3, 3);
         if($cut == "peg"){
             $cut = "jpg";
         } 
         $ext = ".".$cut;
+        $link = str_replace("watch?v=", "embed/",$link);
         $query = $pdo->prepare('INSERT INTO posts (author, title, article, artistName, albumName, songName, link, date, genre, imageSource, imageExt) 
         VALUES (:author, :title, :article, :artistName, :albumName, :songName, :link, :date, :genre, :imageSource, :imageExt)');
         $query->execute([
@@ -71,7 +75,7 @@ if(empty($_POST)){
             'albumName' => $albumName,
             'songName' => $songName,
             'link' => $link,
-            'date' => date("d.m.y h:i"),
+            'date' => date("d.m.y à h:i"),
             'genre' => $genre,
             'imageSource' => $imageSource,
             'imageExt' => $ext
@@ -81,7 +85,6 @@ if(empty($_POST)){
         header('Location: ../users/success.php?subject=publication');
     } 
 }
-
 ?>
 
 <div class="container">
@@ -102,7 +105,7 @@ if(empty($_POST)){
                 <!-- Details -->
                 <div class="form-group">
                     <textarea name="article" placeholder="Une rime, une description"
-                        class="form-control <?php echo($errors['article']) && !$firstAccess ? 'is-invalid' : '' ?>"><?php echo htmlentities($article)?></textarea>
+                        class="form-control <?php echo($errors['article']) && !$firstAccess ? 'is-invalid' : '' ?>"><?= htmlentities($article)?></textarea>
                     <div class="invalid-feedback">
                         <?php echo $errors['article']; ?>
                     </div>
@@ -116,7 +119,7 @@ if(empty($_POST)){
                     </div>
                 </div>
                 <div class="form-group">
-                    <input name="albumName" value="<?php echo htmlentities($albumName)?>" placeholder="Nom de l'album"
+                    <input name="albumName" value="<?php echo htmlentities($albumName)?>" placeholder="Nom de l'album/projet"
                         class="form-control <?php echo($errors['albumName']) && !$firstAccess ? 'is-invalid' : '' ?>">
                     <div class="invalid-feedback">
                         <?php echo $errors['albumName']; ?>

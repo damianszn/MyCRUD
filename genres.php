@@ -10,7 +10,7 @@ $showGenres = false;
 
 if($genre != ''){ //created in header
 
-    $data = $pdo->query("SELECT * FROM posts WHERE genre='$genre' ORDER BY date DESC");
+    $data = $pdo->query("SELECT * FROM posts WHERE genre='$genre' ORDER BY date ASC");
     $postsByGenre = $data->fetchAll();
     $numberOfPosts = count($postsByGenre);
     $numberOfPages = pagesByPosts($numberOfPosts);
@@ -41,7 +41,7 @@ if($genre != ''){ //created in header
       <div class="card-body">
         <h5 class="card-title">Découpeurs</h5>
         <p class="card-text">Rythmes précis et maîtrise des temps, le genre qu'on redécouvre à chaque écoute.</p>
-        <a href="genres.php?genre=decoupeur" class="btn btn-primary">Afficher</a>
+        <a href="genres.php?genre=decoupeur&page=1" class="btn btn-primary">Afficher</a>
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@ if($genre != ''){ //created in header
       <div class="card-body">
         <h5 class="card-title">Mélodieux</h5>
         <p class="card-text">Equilibre entre la poésie et la musique, le genre qu'on a en tête pendant des semaines.</p>
-        <a href="genres.php?genre=melodieux" class="btn btn-primary">Afficher</a>
+        <a href="genres.php?genre=melodieux&page=1" class="btn btn-primary">Afficher</a>
       </div>
     </div>
   </div>
@@ -62,13 +62,13 @@ if($genre != ''){ //created in header
 <nav>
   <ul class="pagination pagination justify-content-center">
     <li class="page-item <?= ($page == '1') ? 'disabled' : '' ;?>">
-      <a class="page-link" href="/last.php?page=<?= $page-1;?>" aria-disabled="true">Précédents</a>
+      <a class="page-link" href="/genres.php?genre=<?= $genre ?>&page=<?= $page-1;?>" aria-disabled="true">Précédents</a>
     </li>
     <?php for($i = 1;$i <= $numberOfPages; $i++): ?>
         <li class="page-item <?= $i == $page ? 'active' : ''?>"><a class="page-link" href="/last.php?page=<?= $i ?>"><?= $i ?></a></li>
     <?php endfor;?>
     <li class="page-item <?= ($page == $numberOfPages) ? 'disabled' : '' ;?>">
-      <a class="page-link" href="/last.php?page=<?= $page+1;?>">Suivants</a>
+      <a class="page-link" href="/genres.php?genre=<?= $genre ?>&page=<?= $page+1;?>">Suivants</a>
     </li>
   </ul>
 </nav>

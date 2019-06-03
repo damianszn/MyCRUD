@@ -37,9 +37,12 @@ $loggedStatus = $_SESSION['logged'] ?? '';
             <li class="nav-item <?php echo($currentPage == "index" ? "active" : "");?>">
                 <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span> </a>
             </li>
+            <li class="nav-item <?php echo($currentPage == "about" ? "active" : "");?>">
+                <a class="nav-link" href="about.php">Présentation</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Genres
+                Posts
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item <?= $genre == 'decoupeur' ? 'active' : '' ?>" href="genres.php?genre=decoupeur&page=1">Découpeurs</a>
@@ -47,9 +50,6 @@ $loggedStatus = $_SESSION['logged'] ?? '';
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item <?= $currentPage == "genres" && $genre == '' ? 'active' : ''  ?>" href="genres.php">Voir les genres</a>
                 </div>
-            </li>
-            <li class="nav-item <?php echo($currentPage == "about" ? "active" : "");?>">
-                <a class="nav-link" href="about.php">Présentation</a>
             </li>
             <?php if($loggedStatus === true):?>
             <li class="nav-item">

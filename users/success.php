@@ -1,13 +1,11 @@
 <?php 
 include '../partials/mini-header.php';
-if(isset($_GET['subject'])){
-    $subject = ucfirst($_GET['subject']);
-}
-header( "refresh:3;url=../index.php" );
+$subject = $_GET['subject'] ?? null;
+$subject = ucfirst($subject);
 ?>
-<?php if(!empty($subject)): ?>
+<?php if(isset($subject)): ?>
 <div class="alert alert-primary" role="alert">
-    <h4 class="alert-heading"><?php echo($subject);?> réussie !</h4>
+    <h4 class="alert-heading"><?=$subject;?> réussie !</h4>
     <hr>
     <button class="btn btn-primary" type="button" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -23,4 +21,6 @@ header( "refresh:3;url=../index.php" );
 </div>
 </div>
 <?php endif;?>
-<?php include '../partials/footer.php';?>
+<?php 
+header( "refresh:3;url=../index.php" );
+include '../partials/footer.php';?>
