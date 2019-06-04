@@ -1,11 +1,7 @@
 <?php
 include 'partials/header.php';
-//Database initiation
-$pdo = new PDO('sqlite:data.db', null, null, [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
 
+$pdo = connectDatabase();
 $data = $pdo->query("SELECT * FROM posts");
 $existingInputs = $data->fetchAll();
 

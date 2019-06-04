@@ -1,15 +1,12 @@
 <?php 
 include 'partials/header.php';
-$user = $_SESSION['username'];
-$thisPost = $_GET['id'] ?? '';
 
-$pdo = new PDO('sqlite:data.db', null, null, [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
-
+$pdo = connectDatabase();
 $data = $pdo->query("SELECT * FROM posts WHERE author='$user' ORDER BY date ASC");
 $userPosts = $data->fetchAll();
+
+$user = $_SESSION['username'];
+$thisPost = $_GET['id'] ?? '';
 ?>
 
 <?php if($thisPost == ''): ?>

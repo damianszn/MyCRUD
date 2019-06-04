@@ -1,5 +1,10 @@
 <?php 
 include 'partials/header.php';
+
+$pdo = connectDatabase();
+$data = $pdo->query("SELECT * FROM posts ORDER BY date ASC LIMIT 3");
+$lastPosts = $data->fetchAll();
+
 $loggedStatus = $_SESSION['logged'] ?? '';
 $disconnecting = $_GET['disconnect'] ?? '';
 $username = $_SESSION['username'] ?? '';
@@ -10,14 +15,6 @@ if($disconnecting == true){
   unset($disconnecting);
   header("Location: index.php");
 } 
-
-$pdo = new PDO('sqlite:data.db', null, null, [
-  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
-
-$data = $pdo->query("SELECT * FROM posts ORDER BY date ASC LIMIT 3");
-$lastPosts = $data->fetchAll();
 ?>
 
 <?php if($loggedStatus === true): ?>

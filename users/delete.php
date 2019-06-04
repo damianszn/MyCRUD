@@ -1,19 +1,19 @@
 <?php 
 include '../partials/mini-header.php';
-$logged = $_SESSION['logged'] ?? false;
-$username = $_SESSION['username'] ?? '';
-$confirmation = $_GET['confirmation'];
-
-$postId = $_GET['id'];
 
 $pdo = new PDO('sqlite:../data.db', null, null, [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
-
 $data = $pdo->query("SELECT * FROM posts WHERE id=$postId");
 $fetchedPost = $data->fetchAll();
 $post = $fetchedPost[0];
+
+$logged = $_SESSION['logged'] ?? false;
+$username = $_SESSION['username'] ?? '';
+$confirmation = $_GET['confirmation'];
+
+$postId = $_GET['id'];
 
 if($confirmation == "yes" && $logged == true){
     $query = $pdo->prepare("DELETE FROM posts WHERE id=$postId");

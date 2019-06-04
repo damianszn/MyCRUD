@@ -1,11 +1,10 @@
 <?php
 include '../partials/mini-header.php';
-//Database initiation
+
 $pdo = new PDO('sqlite:../data.db', null, null, [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
-
 $data = $pdo->query("SELECT username, password FROM users");
 $existingInputs = $data->fetchAll();
 

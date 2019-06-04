@@ -1,18 +1,14 @@
 <?php
 include 'partials/header.php';
 
-$username = $_SESSION['username'] ?? '';
-
-$postId = $_GET['id'];
-
-$pdo = new PDO('sqlite:data.db', null, null, [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
-
+$pdo = connectDatabase();
 $data = $pdo->query("SELECT * FROM posts WHERE id=$postId");
 $fetchedPost = $data->fetchAll();
 $post = $fetchedPost[0];
+
+$username = $_SESSION['username'] ?? '';
+
+$postId = $_GET['id'];
 
 $src = $postId.$post['imageExt'];
 ?>

@@ -1,5 +1,6 @@
 <?php 
 include '../partials/mini-header.php';
+
 $subject = $_GET['subject'] ?? null;
 $subject = ucfirst($subject);
 ?>
