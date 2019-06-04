@@ -1,14 +1,14 @@
 <?php
 include 'partials/header.php';
 
+$postId = $_GET['id'];
+
 $pdo = connectDatabase();
 $data = $pdo->query("SELECT * FROM posts WHERE id=$postId");
 $fetchedPost = $data->fetchAll();
 $post = $fetchedPost[0];
 
 $username = $_SESSION['username'] ?? '';
-
-$postId = $_GET['id'];
 
 $src = $postId.$post['imageExt'];
 ?>
