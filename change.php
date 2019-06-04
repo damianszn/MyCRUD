@@ -1,12 +1,12 @@
 <?php 
 include 'partials/header.php';
 
+$user = $_SESSION['username'];
+$thisPost = $_GET['id'] ?? '';
+
 $pdo = connectDatabase();
 $data = $pdo->query("SELECT * FROM posts WHERE author='$user' ORDER BY date ASC");
 $userPosts = $data->fetchAll();
-
-$user = $_SESSION['username'];
-$thisPost = $_GET['id'] ?? '';
 ?>
 
 <?php if($thisPost == ''): ?>
