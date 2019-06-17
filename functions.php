@@ -38,7 +38,6 @@ function verifyLogin(array $inputs, string $username, string $password):array{
         }
     }
     if(!isset($index)){
-        var_dump($index);
         return [
             false,
             'username'

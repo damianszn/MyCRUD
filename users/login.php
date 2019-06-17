@@ -25,8 +25,6 @@ if(empty($_POST)){
     $isValid = true;
     $results = verifyLogin($existingInputs, $username, $password);
 
-    var_dump($results);
-
     if(!$username){
         $isValid = false;
         $errors['username'] = "Veuillez entrer votre nom d'utilisateur.";
