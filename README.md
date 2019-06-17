@@ -19,7 +19,7 @@ It's my first take at making a website from scratch, and also making my own feat
 ---
 
 # Installation
-Github Pages doesn't support PHP; if you want to take a look at the project, you can clone/download it (that's why i left the database).
+Github Pages doesn't support PHP, so if you want to take a look at the project, you can clone/download it (that's why i left the database).
 
 You'll just need to have PHP on your computer and run ```php -S localhost:8000``` from the folder (in your terminal).
 
