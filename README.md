@@ -5,7 +5,7 @@ This repo contains the website i did with :
 - SQLite database
 - Bootstrap.
 
-It's made to share songs by quoting really good rhymes and adding details about the source and the artist.
+It's made to share songs by quoting rhymes and adding details about the source and the artist.
 
 I did this project as an exercise to refresh my PHP skills and play a bit more with databases and Bootstrap.
 
